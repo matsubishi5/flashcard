@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title
+      | Flashcard
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    script src='https://kit.fontawesome.com/c51513dd6c.js' crossorigin='anonymous'
+  body
+    .container
+      = yield

@@ -1,0 +1,38 @@
+.row
+  .page-header
+    h3
+      | 単語メンテナンス
+
+.row
+  .col-xs-4
+    = form_with model: @question, url: questions_path(@question), local: true do |f|
+
+      = f.label :question, '単語'
+      = f.text_field :question, placeholder: '単語を入力してください', class: 'form-control'
+      br
+
+      = f.label :question, '答え'
+      = f.text_area :description, placeholder: '答えを入力してください', class: 'form-control'
+      br
+
+      = f.label :question_similar, '類似語'
+      = f.nested_fields_for :question_similars do |qs|
+        = qs.text_field :similar_word, placeholder: '類似語1つ目を入力してください', class: 'form-control'
+        br
+        = qs.remove_nested_fields_link 'フォームを削除', class: 'btn btn-danger', role: 'button'
+        br
+        br
+      = f.add_nested_fields_link :question_similars, 'フォームを追加', class: 'btn btn-primary', role: 'button'
+      br
+      br
+
+      = f.submit '登録', class: 'btn btn-success btn-block'
+      br
+
+    = link_to 'メニューへ戻る', root_path, class: 'btn btn-default'
+
+  .col-xs-8
+    .row
+      = render 'search_form'
+    .row
+      = render 'questions', questions: @questions

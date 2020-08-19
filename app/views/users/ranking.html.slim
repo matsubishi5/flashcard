@@ -1,0 +1,65 @@
+.row
+  .col-xs-3
+
+  .col-xs-6
+    .page-header
+      h3
+        | ユーザーランキング
+
+    - if flash.present?
+      .alert.alert-info.alert-dismissible.fade.in role='alert'
+        button type='button' class='close' data-dismiss='alert'
+          span aria-hidden='true'
+            | &times;
+        - flash.each do |name, msg|
+          = content_tag :div, msg, :id => 'flash_#{ name }' if msg.is_a?(String)
+
+    - if @current_user
+      |  あなたの順位は
+      = @users.count
+      | 人中
+      strong
+        = @current_user.my_rank
+        | 位
+      | です
+
+    .table-responsive
+      table.table.table-bordered.table-hover
+        thead
+          tr
+            th.text-center
+              | 順位
+            th.text-center
+              | 名前
+            th.text-center
+              | 正解率
+
+        tbody
+          - @users.each.with_index(1) do |user, index|
+            tr
+              td.text-center
+                - case index when 1
+                  i.fas.fa-crown[style='color: gold;']
+                - when 2
+                  i.fas.fa-crown[style='color: silver;']
+                - when 3
+                  i.fas.fa-crown[style='color: #B08A1C;']
+                - else
+                  = index
+                  | 位
+              td.text-center
+                - if user == @current_user
+                  span style='color: red; font-weight: bold;'
+                    = user.name
+                - else
+                  = user.name
+              td.text-center
+                - if user == @current_user
+                  span style='color: red; font-weight: bold;'
+                    = user.highest_rate
+                    | %
+                - else
+                  = user.highest_rate
+                  | %
+
+    = link_to 'メニューへ戻る', root_path, class: 'btn btn-default'
