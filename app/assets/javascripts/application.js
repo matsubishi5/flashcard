@@ -17,3 +17,9 @@
 //= require bootstrap-sprockets
 //= require nested_form_fields
 //= require_tree .
+
+window.onpageshow = function (event) {
+  if (event.persisted) {
+    window.location.reload();
+  }
+};

@@ -22,6 +22,7 @@ class QuestionsController < ApplicationController
   end
 
 	def update
+		binding.pry
 		@question.question_similars.destroy_all
 		@question.update(question_params) ? (redirect_to questions_path) : (render 'edit')
   end
